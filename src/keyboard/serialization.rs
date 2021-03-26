@@ -1,27 +1,37 @@
-use macroquad::prelude::KeyCode;
 use serde::{Deserialize, Serialize};
-use ahash::AHashMap as HashMap;
 
-use crate::Control;
-use crate::KeySet;
-use crate::KeySetSerializable;
+#[cfg(feature = "input")]
+use {
+    macroquad::prelude::KeyCode,
+    ahash::AHashMap as HashMap,
+    crate::{
+        Control,
+        KeySet,
+        KeySetSerializable
+    }
+};
 
+
+#[cfg(feature = "input")]
 pub fn ser_map(map: HashMap<Control, KeySet>) -> HashMap<Control, KeySetSerializable> {
     map.into_iter().map(|(control, keys)| {
         (control, ser_set(keys))
     }).collect()
 }
 
+#[cfg(feature = "input")]
 pub fn ser_set(set: KeySet) -> KeySetSerializable {
     set.into_iter().map(|key| KeySerializable::c(key)).collect()
 }
 
+#[cfg(feature = "input")]
 pub fn normal_map(map: &HashMap<Control, KeySetSerializable>) -> HashMap<Control, KeySet> {
     map.iter().map(|(control, keys)| {
         (*control, normal_set(keys))
     }).collect()
 }
 
+#[cfg(feature = "input")]
 pub fn normal_set(set: &KeySetSerializable) -> KeySet {
     set.iter().map(|ks| {
         ks.code
@@ -31,12 +41,18 @@ pub fn normal_set(set: &KeySetSerializable) -> KeySet {
 #[derive(Debug, Copy, Clone, PartialEq, Hash, Eq, Deserialize, Serialize)]
 pub struct KeySerializable {
 
+    #[cfg(feature = "input")]
     #[serde(with = "KeyCodeDef")]
     pub code: KeyCode,
+
+    #[cfg(not(feature = "input"))]
+    pub code: KeyCodeDef,
+
 }
 
 impl KeySerializable {
 
+    #[cfg(feature = "input")]
     pub fn c(code: KeyCode) -> Self {
         Self {
             code
@@ -45,9 +61,9 @@ impl KeySerializable {
 
 }
 
-#[serde(remote = "KeyCode")]
+#[cfg_attr(feature = "input", serde(remote = "KeyCode"))]
 #[derive(Debug, Copy, Clone, PartialEq, Hash, Eq, Deserialize, Serialize)]
-enum KeyCodeDef {
+pub enum KeyCodeDef {
     Space,
     Apostrophe,
     Comma,

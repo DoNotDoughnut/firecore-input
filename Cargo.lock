@@ -93,7 +93,7 @@ dependencies = [
 
 [[package]]
 name = "firecore-input"
-version = "0.1.0"
+version = "0.3.0-beta.4"
 dependencies = [
  "ahash 0.7.2",
  "lazy_static",
@@ -174,9 +174,9 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "libc"
-version = "0.2.88"
+version = "0.2.91"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "03b07a082330a35e43f63177cc01689da34fbffa0105e1246cf0311472cac73a"
+checksum = "8916b1f6ca17130ec6568feccee27c156ad12037880833a3b842a823236502e7"
 
 [[package]]
 name = "lock_api"
@@ -189,8 +189,8 @@ dependencies = [
 
 [[package]]
 name = "macroquad"
-version = "0.3.0-alpha.15"
-source = "git+https://github.com/not-fl3/macroquad#7911f48c329af2eaca5aeba44272f4eb63c761ce"
+version = "0.3.0-alpha.17"
+source = "git+https://github.com/not-fl3/macroquad#fa486ff74caa8b94b2eeee3cad1da50eb393b53b"
 dependencies = [
  "bumpalo",
  "fontdue",
@@ -204,13 +204,13 @@ dependencies = [
 [[package]]
 name = "macroquad_macro"
 version = "0.1.2"
-source = "git+https://github.com/not-fl3/macroquad#7911f48c329af2eaca5aeba44272f4eb63c761ce"
+source = "git+https://github.com/not-fl3/macroquad#fa486ff74caa8b94b2eeee3cad1da50eb393b53b"
 
 [[package]]
 name = "miniquad"
-version = "0.3.0-alpha.26"
+version = "0.3.0-alpha.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2f93dc8b526b2d565063e819449f0e2e7d6acfbf638c9a14c017d5f6c57e3caf"
+checksum = "f0c118b3ca8ee14b60dbadd67c20b84946a6c92db4761e60eb1c545e27863c24"
 dependencies = [
  "sapp-android",
  "sapp-darwin",
@@ -358,9 +358,9 @@ dependencies = [
 
 [[package]]
 name = "sapp-darwin"
-version = "0.1.5"
+version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cf0d38a22937236c2ad6b90a12656a1f307efb144b6d7516104d2169f1dc3b18"
+checksum = "0310e2445f307468aa13f1cde94d6fba6b8fd329afbb642dedbe3faf1a145f31"
 dependencies = [
  "cc",
 ]
@@ -385,24 +385,24 @@ dependencies = [
 
 [[package]]
 name = "sapp-linux"
-version = "0.1.11"
+version = "0.1.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "014328e7e348d068b6d655bd080ee0ca373321e59954eec8a865a87877b1d848"
+checksum = "22b66fa7effb2823d80997912186494d4a19aa74d3ac1ff5aa1cfb648537be92"
 dependencies = [
  "libc",
 ]
 
 [[package]]
 name = "sapp-wasm"
-version = "0.1.20"
+version = "0.1.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "38b0cfb71996396a4e04131b260f6e53a4783c4a818076b32dd76729ab59fa28"
+checksum = "6632d855712381429686c971a984067cb214900640e8fb045c461d2aa35378e4"
 
 [[package]]
 name = "sapp-windows"
-version = "0.2.14"
+version = "0.2.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "74bf2c366504901527cdd5093d067f12f81250791a8187ddac90b2120832becb"
+checksum = "d8fa2d1f641f76f8397cc91c1b7327c6538d4f7897c185d9aac8431cef940e56"
 dependencies = [
  "winapi",
 ]
@@ -415,18 +415,18 @@ checksum = "d29ab0c6d3fc0ee92fe66e2d99f700eab17a8d57d1c1d3b748380fb20baa78cd"
 
 [[package]]
 name = "serde"
-version = "1.0.124"
+version = "1.0.125"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bd761ff957cb2a45fbb9ab3da6512de9de55872866160b23c25f1a841e99d29f"
+checksum = "558dc50e1a5a5fa7112ca2ce4effcb321b0300c0d4ccf0776a9f60cd89031171"
 dependencies = [
  "serde_derive",
 ]
 
 [[package]]
 name = "serde_derive"
-version = "1.0.124"
+version = "1.0.125"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1800f7693e94e186f5e25a28291ae1570da908aff7d97a095dec1e56ff99069b"
+checksum = "b093b7a2bb58203b5da3056c05b4ec1fed827dcfdb37347a8841695263b3d06d"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -441,9 +441,9 @@ checksum = "fe0f37c9e8f3c5a4a66ad655a93c74daac4ad00c441533bf5c6e7990bb42604e"
 
 [[package]]
 name = "syn"
-version = "1.0.63"
+version = "1.0.65"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8fd9bc7ccc2688b3344c2f48b9b546648b25ce0b20fc717ee7fa7981a8ca9717"
+checksum = "f3a1d708c221c5a612956ef9f75b37e454e88d1f7b899fbd3a18d4252012d663"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -464,9 +464,9 @@ checksum = "f7fe0bb3479651439c9112f72b6c505038574c9fbb575ed1bf3b797fa39dd564"
 
 [[package]]
 name = "version_check"
-version = "0.9.2"
+version = "0.9.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b5a972e5669d67ba988ce3dc826706fb0a8b01471c088cb0b6110b805cc36aed"
+checksum = "5fecdca9a5291cc2b8dcf7dc02453fee791a280f3743cb0905f8822ae463b3fe"
 
 [[package]]
 name = "wasi"

@@ -1,15 +1,22 @@
-use macroquad::prelude::KeyCode;
-use ahash::{AHashMap as HashMap, AHashSet as HashSet};
-use parking_lot::RwLock;
-
-use super::Control;
+#[cfg(feature = "input")]
+use {
+    macroquad::prelude::KeyCode,
+    ahash::{
+        AHashMap as HashMap,
+        AHashSet as HashSet
+    },
+    parking_lot::RwLock,
+    super::Control
+};
 
 pub mod serialization;
 
+#[cfg(feature = "input")]
 lazy_static::lazy_static! {
     pub static ref KEY_CONTROLS: RwLock<HashMap<Control, HashSet<KeyCode>>> = RwLock::new(default());
 }
 
+#[cfg(feature = "input")]
 pub fn pressed(control: &Control) -> bool {
     if let Some(keys) = KEY_CONTROLS.read().get(control) {
         for key in keys {
@@ -21,6 +28,7 @@ pub fn pressed(control: &Control) -> bool {
     return false;
 }
 
+#[cfg(feature = "input")]
 pub fn down(control: &Control) -> bool {
     if let Some(keys) = KEY_CONTROLS.read().get(&control) {
         for key in keys {
@@ -32,6 +40,7 @@ pub fn down(control: &Control) -> bool {
     return false;
 }
 
+#[cfg(feature = "input")]
 pub fn default() -> HashMap<Control, HashSet<KeyCode>> {
     let mut controls = HashMap::new();
     controls.insert(Control::A, keyset(&[KeyCode::X]));
@@ -45,6 +54,7 @@ pub fn default() -> HashMap<Control, HashSet<KeyCode>> {
     controls
 }
 
+#[cfg(feature = "input")]
 pub fn keyset(codes: &[KeyCode]) -> HashSet<KeyCode> {
     let mut set = HashSet::new();
     for code in codes {

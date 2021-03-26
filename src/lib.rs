@@ -3,8 +3,9 @@ use serde::{Serialize, Deserialize};
 pub mod keyboard;
 // pub mod touchscreen;
 //pub mod controller;
-
+#[cfg(feature = "input")]
 pub type KeySet = ahash::AHashSet<macroquad::prelude::KeyCode>;
+
 pub type KeySetSerializable = ahash::AHashSet<keyboard::serialization::KeySerializable>;
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Deserialize, Serialize)]
@@ -22,6 +23,7 @@ pub enum Control {
 
 }
 
+#[cfg(feature = "input")]
 pub fn pressed(control: Control) -> bool {
     if keyboard::pressed(&control) {
         return true;
@@ -32,6 +34,7 @@ pub fn pressed(control: Control) -> bool {
     return false;
 }
 
+#[cfg(feature = "input")]
 pub fn down(control: Control) -> bool {
     if keyboard::down(&control) {
         return true;

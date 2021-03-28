@@ -5,20 +5,18 @@ use {
         AHashMap as HashMap,
         AHashSet as HashSet
     },
-    parking_lot::RwLock,
-    super::Control
+    crate::KeyMap,
+    super::Control,
 };
 
 pub mod serialization;
 
 #[cfg(feature = "input")]
-lazy_static::lazy_static! {
-    pub static ref KEY_CONTROLS: RwLock<HashMap<Control, HashSet<KeyCode>>> = RwLock::new(default());
-}
+pub static mut KEY_CONTROLS: Option<KeyMap> = None;
 
 #[cfg(feature = "input")]
 pub fn pressed(control: &Control) -> bool {
-    if let Some(keys) = KEY_CONTROLS.read().get(control) {
+    if let Some(keys) = unsafe{KEY_CONTROLS.as_ref().unwrap().get(control)} {
         for key in keys {
             if macroquad::prelude::is_key_pressed(*key) {
                 return true;
@@ -30,7 +28,7 @@ pub fn pressed(control: &Control) -> bool {
 
 #[cfg(feature = "input")]
 pub fn down(control: &Control) -> bool {
-    if let Some(keys) = KEY_CONTROLS.read().get(&control) {
+    if let Some(keys) = unsafe{KEY_CONTROLS.as_ref().unwrap().get(&control)} {
         for key in keys {
             if macroquad::prelude::is_key_down(*key) {
                 return true;

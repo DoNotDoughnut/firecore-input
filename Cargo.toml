@@ -1,20 +1,17 @@
 [package]
 name = "firecore-input"
-version = "0.3.0-beta.4"
+version = "0.3.0-beta.2"
 authors = ["Rhys Holloway <rhyswilliamholloway@gmail.com>"]
 edition = "2018"
 
 [features]
 default = ["input"]
-input = ["lazy_static", "parking_lot", "macroquad"]
+input = ["macroquad"]
 
 [dependencies]
 
 serde = { version = "1.0", features = ["derive"] }
 
 ahash = { version = "0.7", features = ["serde"] }
-
-lazy_static = { version = "1.4", optional = true }
-parking_lot = { version = "0.11", optional = true }
 
 macroquad = { version = "0.3.0-alpha.17", optional = true }

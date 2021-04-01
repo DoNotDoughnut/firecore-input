@@ -15,6 +15,11 @@ pub mod serialization;
 pub static mut KEY_CONTROLS: Option<KeyMap> = None;
 
 #[cfg(feature = "input")]
+pub fn load(key_map: KeyMap) {
+    unsafe { KEY_CONTROLS = Some(key_map); }
+}
+
+#[cfg(feature = "input")]
 pub fn pressed(control: &Control) -> bool {
     if let Some(keys) = unsafe{KEY_CONTROLS.as_ref().unwrap().get(control)} {
         for key in keys {

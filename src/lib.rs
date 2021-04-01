@@ -2,8 +2,12 @@ use serde::{Serialize, Deserialize};
 use ahash::{AHashMap as HashMap, AHashSet as HashSet};
 
 pub mod keyboard;
-// pub mod touchscreen;
+
+#[cfg(feature = "input")]
+pub mod touchscreen;
+
 //pub mod controller;
+
 #[cfg(feature = "input")]
 pub type KeySet = HashSet<macroquad::prelude::KeyCode>;
 
@@ -32,6 +36,11 @@ pub fn pressed(control: Control) -> bool {
     if keyboard::pressed(&control) {
         return true;
     }
+    if let Some(controls) = unsafe{touchscreen::TOUCHSCREEN.as_ref()} {
+        if controls.pressed(&control) {
+            return true;
+        }
+    }
     // if touchscreen::TOUCH_CONTROLS.pressed(&control) {
     //     return true;
     // }
@@ -43,13 +52,10 @@ pub fn down(control: Control) -> bool {
     if keyboard::down(&control) {
         return true;
     }
-    // if touchscreen::TOUCH_CONTROLS.down(&control) {
-    //     return true;
-    // }
+    if let Some(controls) = unsafe{touchscreen::TOUCHSCREEN.as_ref()} {
+        if controls.down(&control) {
+            return true;
+        }
+    }
     return false;
-}
-
-#[cfg(feature = "input")]
-pub fn load(key_map: KeyMap) {
-    unsafe { keyboard::KEY_CONTROLS = Some(key_map); }
 }

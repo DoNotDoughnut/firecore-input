@@ -21,7 +21,7 @@ pub fn ser_map(map: HashMap<Control, KeySet>) -> HashMap<Control, KeySetSerializ
 
 #[cfg(feature = "input")]
 pub fn ser_set(set: KeySet) -> KeySetSerializable {
-    set.into_iter().map(|key| KeySerializable::c(key)).collect()
+    set.into_iter().map(|key| KeySerializable::new(key)).collect()
 }
 
 #[cfg(feature = "input")]
@@ -52,8 +52,12 @@ pub struct KeySerializable {
 
 impl KeySerializable {
 
-    #[cfg(feature = "input")]
-    pub fn c(code: KeyCode) -> Self {
+    pub fn new(
+        #[cfg(feature = "input")]
+        code: KeyCode,
+        #[cfg(not(feature = "input"))]
+        code: KeyCodeDef,
+    ) -> Self {
         Self {
             code
         }

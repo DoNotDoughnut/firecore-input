@@ -1,5 +1,9 @@
 use serde::{Serialize, Deserialize};
-use ahash::{AHashMap as HashMap, AHashSet as HashSet};
+use ahash::AHashSet as HashSet;
+
+#[cfg(feature = "input")]
+use ahash::AHashMap as HashMap;
+
 
 pub mod keyboard;
 

@@ -1,16 +1,7 @@
-use macroquad::prelude::KeyCode;
 use serde::{Serialize, Deserialize};
-use ahash::AHashSet as HashSet;
-use ahash::AHashMap as HashMap;
 
 pub mod keyboard;
-
 pub mod touchscreen;
-
-//pub mod controller;
-
-pub type KeySet = HashSet<KeyCode>;
-pub type KeyMap = HashMap<Control, HashSet<KeyCode>>;
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Deserialize, Serialize)]
 pub enum Control {
@@ -23,7 +14,6 @@ pub enum Control {
     Right,
     Start,
     Select,
-    //Escape,
 
 }
 
@@ -36,10 +26,7 @@ pub fn pressed(control: Control) -> bool {
             return true;
         }
     }
-    // if touchscreen::TOUCH_CONTROLS.pressed(&control) {
-    //     return true;
-    // }
-    return false;
+    false
 }
 
 pub fn down(control: Control) -> bool {
@@ -51,5 +38,5 @@ pub fn down(control: Control) -> bool {
             return true;
         }
     }
-    return false;
+    false
 }

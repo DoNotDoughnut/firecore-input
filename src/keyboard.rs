@@ -1,42 +1,47 @@
-use ahash::{
-    AHashMap as HashMap,
-    AHashSet as HashSet,
-};
-use macroquad::prelude::KeyCode;
+use ahash::{AHashMap as HashMap, AHashSet as HashSet};
 
-use crate::KeySet;
+use macroquad::prelude::KeyCode;
 
 use super::Control;
 
-pub static mut KEY_CONTROLS: Option<crate::KeyMap> = None;
+pub type KeySet = HashSet<KeyCode>;
+pub type KeyMap = HashMap<Control, HashSet<KeyCode>>;
 
-pub fn load(key_map: crate::KeyMap) {
+static mut KEY_CONTROLS: Option<KeyMap> = None;
+
+pub fn load(key_map: KeyMap) {
     unsafe { KEY_CONTROLS = Some(key_map); }
 }
 
 pub fn pressed(control: &Control) -> bool {
-    if let Some(keys) = unsafe{KEY_CONTROLS.as_ref().unwrap().get(control)} {
+    if let Some(keys) = keys(control) {
         for key in keys {
             if macroquad::prelude::is_key_pressed(*key) {
                 return true;
             }
         }
     }
-    return false;
+    false
 }
 
 pub fn down(control: &Control) -> bool {
-    if let Some(keys) = unsafe{KEY_CONTROLS.as_ref().unwrap().get(&control)} {
+    if let Some(keys) = keys(control) {
         for key in keys {
             if macroquad::prelude::is_key_down(*key) {
                 return true;
             }
         }
     }
-    return false;
+    false
 }
 
-pub fn default() -> HashMap<Control, KeySet> {
+pub fn keys(control: &Control) -> Option<&KeySet> {
+    unsafe {
+        KEY_CONTROLS.as_ref().map(|controls| controls.get(control).unwrap_or_else(|| panic!("Could not get keys for control {:?}!", control)))
+    }
+}
+
+pub fn default_key_map() -> HashMap<Control, KeySet> {
 
     let mut controls = HashMap::new();
     controls.insert(Control::A, keyset(&[KeyCode::X]));

@@ -1,24 +1,16 @@
+use macroquad::prelude::KeyCode;
 use serde::{Serialize, Deserialize};
 use ahash::AHashSet as HashSet;
-
-#[cfg(feature = "input")]
 use ahash::AHashMap as HashMap;
-
 
 pub mod keyboard;
 
-#[cfg(feature = "input")]
 pub mod touchscreen;
 
 //pub mod controller;
 
-#[cfg(feature = "input")]
-pub type KeySet = HashSet<macroquad::prelude::KeyCode>;
-
-pub type KeySetSerializable = HashSet<keyboard::serialization::KeySerializable>;
-
-#[cfg(feature = "input")]
-pub type KeyMap = HashMap<Control, HashSet<macroquad::prelude::KeyCode>>;
+pub type KeySet = HashSet<KeyCode>;
+pub type KeyMap = HashMap<Control, HashSet<KeyCode>>;
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Deserialize, Serialize)]
 pub enum Control {
@@ -35,7 +27,6 @@ pub enum Control {
 
 }
 
-#[cfg(feature = "input")]
 pub fn pressed(control: Control) -> bool {
     if keyboard::pressed(&control) {
         return true;
@@ -51,7 +42,6 @@ pub fn pressed(control: Control) -> bool {
     return false;
 }
 
-#[cfg(feature = "input")]
 pub fn down(control: Control) -> bool {
     if keyboard::down(&control) {
         return true;

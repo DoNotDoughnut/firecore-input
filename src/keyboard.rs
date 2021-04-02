@@ -1,25 +1,19 @@
-use crate::KeySetSerializable;
-
-use self::serialization::KeySerializable;
-
 use ahash::{
     AHashMap as HashMap,
     AHashSet as HashSet,
 };
+use macroquad::prelude::KeyCode;
+
+use crate::KeySet;
 
 use super::Control;
 
-pub mod serialization;
-
-#[cfg(feature = "input")]
 pub static mut KEY_CONTROLS: Option<crate::KeyMap> = None;
 
-#[cfg(feature = "input")]
 pub fn load(key_map: crate::KeyMap) {
     unsafe { KEY_CONTROLS = Some(key_map); }
 }
 
-#[cfg(feature = "input")]
 pub fn pressed(control: &Control) -> bool {
     if let Some(keys) = unsafe{KEY_CONTROLS.as_ref().unwrap().get(control)} {
         for key in keys {
@@ -31,7 +25,6 @@ pub fn pressed(control: &Control) -> bool {
     return false;
 }
 
-#[cfg(feature = "input")]
 pub fn down(control: &Control) -> bool {
     if let Some(keys) = unsafe{KEY_CONTROLS.as_ref().unwrap().get(&control)} {
         for key in keys {
@@ -43,13 +36,7 @@ pub fn down(control: &Control) -> bool {
     return false;
 }
 
-pub fn default() -> HashMap<Control, KeySetSerializable> {
-
-    #[cfg(not(feature = "input"))]
-    use serialization::KeyCodeDef as KeyCode;
-
-    #[cfg(feature = "input")]
-    use macroquad::prelude::KeyCode;
+pub fn default() -> HashMap<Control, KeySet> {
 
     let mut controls = HashMap::new();
     controls.insert(Control::A, keyset(&[KeyCode::X]));
@@ -64,14 +51,11 @@ pub fn default() -> HashMap<Control, KeySetSerializable> {
 }
 
 fn keyset(
-    #[cfg(not(feature = "input"))]
-    codes: &[serialization::KeyCodeDef],
-    #[cfg(feature = "input")]
-    codes: &[macroquad::prelude::KeyCode]
-) -> KeySetSerializable {
+    codes: &[KeyCode]
+) -> KeySet {
     let mut set = HashSet::new();
     for code in codes {
-        set.insert(KeySerializable::new(*code));
+        set.insert(*code);
     }    
-    return set;
+    set
 }

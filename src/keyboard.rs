@@ -1,4 +1,4 @@
-use ahash::{AHashMap as HashMap, AHashSet as HashSet};
+use firecore_util::hash::{HashMap, HashSet};
 
 use macroquad::prelude::KeyCode;
 
